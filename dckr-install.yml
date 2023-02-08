@@ -1,0 +1,19 @@
+---
+- name: Install and start docker
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update all packages
+      yum:
+        name: '*'
+        state: latest
+        update_only: yes
+
+    - name: Install docker
+      shell:  "amazon-linux-extras install docker -y"
+
+    - name: Start and enable docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
